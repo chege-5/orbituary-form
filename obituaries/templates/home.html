@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #5ba9ee;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #6a0dad; 
+            margin-top: 50px;
+        }
+        h2 {
+            color: #62e45d;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #f8f402;
+            margin-top: 30px;
+        }
+        p {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #6a0dad; 
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 2px solid transparent; 
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.5); 
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        a:hover {
+            background-color: #5a0a9e; 
+            text-decoration: none;
+            box-shadow: 0 0 12px rgba(0, 255, 0, 0.7); 
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h1>WELCOME TO THE OBITUARY PLATFORM</h1>
+            <h2>HERE WE UPLOAD DETAILS OF YOUR LOVED ONE</h2>
+            <h3>WE ALSO ALLOW YOU SEE DECEASED ONES WITH THEIR DETAILS</h3>
+            <p><a href="{% url 'submit_obituary' %}">Submit an Obituary</a></p>
+            <p><a href="{% url 'view_obituaries' %}">View Obituaries</a></p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (event) => {
+                    
+                    if (!confirm("Are you sure you want to navigate to this page?")) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Obituary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #b9fbc0); 
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #4a148c; 
+            margin-top: 30px;
+            font-size: 2.5rem; 
+        }
+        form {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.9); 
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: left; 
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 16px;
+            color: #333;
+        }
+        input[type="text"], input[type="date"], textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            background: linear-gradient(to right, #6a0dad, #a45fd4); 
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background: linear-gradient(to right, #5a0a9e, #8c2a91); 
+            transform: scale(1.05);
+        }
+        .messages {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .messages li {
+            background: rgba(255, 102, 102, 0.9);
+            color: #a00;
+            border: 1px solid #a00;
+            border-radius: 8px;
+            margin: 10px auto;
+            padding: 10px;
+            max-width: 600px;
+            box-sizing: border-box;
+        }
+        .buttons-container {
+            margin-top: 20px;
+        }
+        .buttons-container a {
+            display: inline-block;
+            background: linear-gradient(to right, #4a148c, #7b1fa2); 
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 18px;
+            margin: 5px;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .buttons-container a:hover {
+            background: linear-gradient(to right, #3d0a6a, #6d28b8); 
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Our Platform</h1>
+    <h1>Submit Obituary</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form id="obituaryForm" method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="date_of_birth">Date of Birth:</label>
+        <input type="date" id="date_of_birth" name="date_of_birth" required>
+
+        <label for="date_of_death">Date of Death:</label>
+        <input type="date" id="date_of_death" name="date_of_death" required>
+
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" rows="4" required></textarea>
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required>
+
+        <button type="submit">Submit</button>
+    </form>
+    <div class="buttons-container">
+        <a href="{% url 'view_obituaries' %}">View Obituaries</a>
+    </div>
+
+    <script>
+        document.getElementById('obituaryForm').addEventListener('submit', function(event) {
+            var title = document.querySelector('input[name="title"]').value;
+            var name = document.querySelector('input[name="name"]').value;
+            var dateOfBirth = document.querySelector('input[name="date_of_birth"]').value;
+            var dateOfDeath = document.querySelector('input[name="date_of_death"]').value;
+            var content = document.querySelector('textarea[name="content"]').value;
+            var author = document.querySelector('input[name="author"]').value;
+
+            if (!title || !name || !dateOfBirth || !dateOfDeath || !content || !author) {
+                alert('All fields are required.');
+                event.preventDefault();
+            } else if (new Date(dateOfDeath) < new Date(dateOfBirth)) {
+                alert('Date of Death cannot be earlier than Date of Birth.');
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

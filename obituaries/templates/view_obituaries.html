@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Obituaries</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; 
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #6a0dad; 
+            margin-top: 50px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #ffffff; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #6a0dad; 
+            color: #ffffff;
+            text-align: left;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9; 
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #6a0dad; 
+            font-size: 16px;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #5a0a9e; 
+        }
+    </style>
+</head>
+<body>
+    <h1>OBITUARIES</h1>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Date of Death</th>
+                <th scope="col">Author</th>
+                <th scope="col">Submission Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obituary in obituaries %}
+            <tr>
+                <td>{{ obituary.name }}</td>
+                <td>{{ obituary.date_of_birth }}</td>
+                <td>{{ obituary.date_of_death }}</td>
+                <td>{{ obituary.author }}</td>
+                <td>{{ obituary.submission_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'submit_obituary' %}">Submit New Obituary</a>
+</body>
+</html>

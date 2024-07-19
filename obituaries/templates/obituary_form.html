@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Obituary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; 
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #6a0dad; 
+            margin-top: 50px;
+        }
+        form {
+            display: inline-block;
+            background-color: #ffffff; 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        button {
+            background-color: #6a0dad; 
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #5a0a9e; 
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #6a0dad; 
+            font-size: 16px;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #5a0a9e; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Submit Obituary</h1>
+    <form id="obituary-form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <a href="{% url 'view_obituaries' %}">View Obituaries</a>
+
+
+    <script>
+        document.getElementById('obituary-form').addEventListener('submit', function(event) {
+            
+            const title = document.querySelector('input[name="title"]').value;
+            const name = document.querySelector('input[name="name"]').value;
+            const dateOfBirth = document.querySelector('input[name="date_of_birth"]').value;
+            const dateOfDeath = document.querySelector('input[name="date_of_death"]').value;
+            const content = document.querySelector('textarea[name="content"]').value;
+            const author = document.querySelector('input[name="author"]').value;
+
+            if (!title || !name || !dateOfBirth || !dateOfDeath || !content || !author) {
+                alert('Please fill in all required fields.');
+                event.preventDefault(); 
+                return;
+            }
+
+          
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Obituary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #6a0dad; 
+            margin-top: 50px;
+        }
+        form {
+            display: inline-block;
+            background-color: #ffffff; 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #6a0dad;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #5a0a9e; 
+        }
+        .messages {
+            list-style-type: none;
+            padding: 0;
+        }
+        .messages li {
+            background-color: #ffcccc; 
+            color: #a00;
+            border: 1px solid #a00;
+            border-radius: 5px;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        .buttons-container {
+            margin-top: 20px;
+        }
+        .buttons-container a {
+            display: inline-block;
+            background-color: #6a0dad;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .buttons-container a:hover {
+            background-color: #5a0a9e;
+        }
+    </style>
+</head>
+<body>
+    <h1>WELCOME!!</h1>
+    <h1>SUBMIT OBITUARY</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form id="obituaryForm" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <div class="buttons-container">
+        <a href="{% url 'view_obituaries' %}">View Obituaries</a>
+    </div>
+
+    <script>
+        document.getElementById('obituaryForm').addEventListener('submit', function(event) {
+            var title = document.querySelector('input[name="title"]').value;
+            var name = document.querySelector('input[name="name"]').value;
+            var dateOfBirth = document.querySelector('input[name="date_of_birth"]').value;
+            var dateOfDeath = document.querySelector('input[name="date_of_death"]').value;
+            var content = document.querySelector('textarea[name="content"]').value;
+            var author = document.querySelector('input[name="author"]').value;
+
+            if (!title || !name || !dateOfBirth || !dateOfDeath || !content || !author) {
+                alert('All fields are required.');
+                event.preventDefault();
+            } else if (new Date(dateOfDeath) < new Date(dateOfBirth)) {
+                alert('Date of Death cannot be earlier than Date of Birth.');
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
